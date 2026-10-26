@@ -50,7 +50,8 @@ prompt: |
   QUERY FILE: research/runs/<vault_tag>/query.md
 
   PIPELINE POSITION: You are step 15 (polish auditor) of the
-  hyperresearch V8 pipeline — the final step. Step 14 (patcher) applied
+  hyperresearch V8 pipeline — the last editing pass before step 16's
+  readability audit. Step 14 (patcher) applied
 <% if platform == "codex" %>  critic findings as patch hunks. After you return, the orchestrator
   runs the final integrity gate and ships. You only read files and
   apply surgical patches (apply_patch) — never create or rewrite a file.
