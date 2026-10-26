@@ -1588,6 +1588,10 @@ prompt. No block = this prompt's defaults apply unchanged.
   tool lock is `[Read, Edit]` only. If the stub is missing when you
   arrive, STOP and report back so the orchestrator can re-stub and
   retry.
+- **wrapper_contract_path** (optional): `research/wrapper_contract.json`,
+  passed only when that file exists. It is the only way you learn whether
+  a wrapper requires the YAML frontmatter block (section 1a). Absent =
+  no wrapper requirement.
 
 ## What you check
 
@@ -1599,7 +1603,8 @@ are planning artifacts that leaked from the orchestrator's scratch work:
 {scaffold_only_sections}
 
 Also strip:
-- YAML frontmatter at the top of the file (the `---\\n...\\n---\\n` block)
+- YAML frontmatter at the top of the file (the `---\\n...\\n---\\n` block),
+  unless `wrapper_contract_path` requires it — then fix it per section 1a
 - Literal prompt echoes ("User prompt:", "The query is:", etc.)
 - Leftover backticks around section headings
 - Stray "Here is the report:" / "Below is the draft:" preamble lines
@@ -1622,7 +1627,8 @@ the offending block entirely.
 
 ### 1a. Frontmatter hygiene (YAML metadata block)
 
-If the file keeps a YAML frontmatter block (some wrappers require it),
+If the wrapper contract at `wrapper_contract_path` requires a YAML
+frontmatter block,
 fix these specific failures — they are reader-visible metadata that
 graders and downstream consumers see:
 
@@ -1637,9 +1643,9 @@ graders and downstream consumers see:
 - `summary:` ending in `...` (truncated) — rewrite to a complete
   one-sentence description of the report's thesis.
 
-If the entire frontmatter block is safe to remove (no wrapper requires
-it), prefer stripping it. If a wrapper requires it, fix the fields
-above in place.
+If no `wrapper_contract_path` was passed, or the contract does not
+require frontmatter, strip the whole block (section 1). If it does,
+fix the fields above in place.
 
 ### 1b. Inline scaffold vocabulary strip (reader-facing prose)
 
